@@ -5,7 +5,7 @@ A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
 ## Usage
 
 ```js
-import BunnyNet from 'bunnynet-node-sdk'
+import BunnyNet from 'bunnynet-node'
 
 const bunny = new BunnyNet({
   pullzone: process.env.BUNNY_NET_PULLZONE,

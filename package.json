@@ -22,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/8ctopotamus/bunnynet-node-sdk/issues"
   },
-  "homepage": "https://github.com/8ctopotamus/bunnynet-node-sdk#readme"
+  "homepage": "https://github.com/8ctopotamus/bunnynet-node-sdk#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
 }

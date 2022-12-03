@@ -24,7 +24,10 @@ Create a `.env` file in the root of the project:
 ```env
 BUNNY_NET_PULLZONE=
 BUNNY_NET_ACCESS_KEY=
+BUNNY_NET_STORAGEZONE_NAME=
 ```
+
+Run `node sandbox.js` to run sandbox file.
 
 ## TODO
 

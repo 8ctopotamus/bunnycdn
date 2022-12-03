@@ -3,9 +3,9 @@
     "target": "es5",
     "module": "ESNext",
     "lib": [
-      "ES5",
-      "ES6",
-      "ES6.Collection",
+      "es5",
+      "ES2015",
+      "es2015.collection"
     ],
     "declaration": true,
     "declarationMap": true,

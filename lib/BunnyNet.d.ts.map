@@ -1,0 +1,1 @@
+{"version":3,"file":"BunnyNet.d.ts","sourceRoot":"","sources":["../src/BunnyNet.ts"],"names":[],"mappings":"AAEA,cAAM,QAAQ;IACZ,aAAa,SAAwB;gBAEzB,EAAE,SAAS,EAAE,QAAQ,EAAE,eAAe,EAAE;;;;KAAA;IA8BpD,QAAQ;;MAIP;IAED,IAAI,KAAK;IAET,MAAM,KAAK;CACZ;AAED,eAAe,QAAQ,CAAA"}

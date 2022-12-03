@@ -1,4 +1,4 @@
-# bunnynet-node-sdk
+# bunnynet-node
 
 A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
  
@@ -29,6 +29,8 @@ BUNNY_NET_ACCESS_KEY=your_access_key
 BUNNY_NET_STORAGEZONE_NAME=your_storagezone_name
 BUNNY_NET_STORAGEZONE_PASSWORD=your_storagezone_password
 ```
+
+Run `node sandbox.js` to run sandbox file.
 
 ## TODO
 

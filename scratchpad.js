@@ -10,4 +10,4 @@ const bunny = new BunnyNet({
   accessKey: BUNNY_NET_ACCESS_KEY
 })
 
-console.log(await bunny.listPullzones())
+console.log(await bunny.api.pullzone.list())

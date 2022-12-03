@@ -24,10 +24,14 @@ class BunnyNet {
       }
     }
   }
-}
 
-BunnyNet.prototype.listPullzones = async function() {
-  return await this.talkToBunny('/pullzone')
+  api = {
+    pullzone: {
+      list: async args => {
+        return await this.talkToBunny('/pullzone', args)
+      }
+    }
+  }
 }
 
 export default BunnyNet

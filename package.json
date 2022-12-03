@@ -1,5 +1,5 @@
 {
-  "name": "bunnynet-node-sdk",
+  "name": "bunnynet-node",
   "version": "1.0.0",
   "description": "A NodeJS SDK for Bunny.Net CDN.",
   "main": "index.js",
@@ -9,20 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/8ctopotamus/bunnynet-node-sdk.git"
+    "url": "git+https://github.com/8ctopotamus/bunnynet-node.git"
   },
   "keywords": [
     "bunny.net",
     "bunnynet",
     "bunnycdn",
+    "bunny",
     "cdn"
   ],
   "author": "@8ctopotamus",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/8ctopotamus/bunnynet-node-sdk/issues"
+    "url": "https://github.com/8ctopotamus/bunnynet-node/issues"
   },
-  "homepage": "https://github.com/8ctopotamus/bunnynet-node-sdk#readme",
+  "homepage": "https://github.com/8ctopotamus/bunnynet-node#readme",
   "dependencies": {
     "node-fetch": "^3.3.0"
   },

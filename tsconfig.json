@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "ESNext",
     "lib": [
+      "dom",
       "es5",
       "ES2015",
       "es2015.collection"

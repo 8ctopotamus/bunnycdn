@@ -7,23 +7,27 @@ A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
 ```js
 import BunnyNet from 'bunnynet-node'
 
+// configure the SDK
 const bunny = new BunnyNet({
   pullzone: process.env.BUNNY_NET_PULLZONE,
-  accessKey: process.env.BUNNY_NET_ACCESS_KEY
-  storageZoneName: process.env.BUNNY_NET_STORAGEZONE_NAME
+  accessKey: process.env.BUNNY_NET_ACCESS_KEY,
+  storageZoneName: process.env.BUNNY_NET_STORAGEZONE_NAME,
+  storageZonePassword: process.env.BUNNY_NET_STORAGEZONE_PASSWORD,
 })
 
 // GET all pullzones
-console.log(await bunny.pullzone.list())
+console.log( await bunny.pullzone.list() )
 ```
 
 ## Develop
 
-Create a `.env` file in the root of the project:
+Create and fill out a `.env` file in the root of the project:
 
 ```env
-BUNNY_NET_PULLZONE=
-BUNNY_NET_ACCESS_KEY=
+BUNNY_NET_PULLZONE=your_pullzone_name
+BUNNY_NET_ACCESS_KEY=your_access_key
+BUNNY_NET_STORAGEZONE_NAME=your_storagezone_name
+BUNNY_NET_STORAGEZONE_PASSWORD=your_storagezone_password
 ```
 
 ## TODO
@@ -47,13 +51,13 @@ BUNNY_NET_ACCESS_KEY=
 
 ### Edge Storage API
 
-* [ ] Manage Files
-  * [ ] Download File
-  * [ ] Upload a File
-  * [ ] Delete a File
+* [...] Manage Files
+  * [...] Download File
+  * [...] Upload a File
+  * [...] Delete a File
 
-* [ ] Browse Files
-  * [ ] List Files
+* [...] Browse Files
+  * [...] List Files
 
 ### Stream API
 

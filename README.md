@@ -1,4 +1,4 @@
-# bunnynet-node-sdk
+# bunnynet-node
 
 A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
  

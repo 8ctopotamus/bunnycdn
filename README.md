@@ -2,6 +2,19 @@
 
 A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
  
+## Usage
+
+```js
+import BunnyNet from 'bunnynet-node-sdk'
+
+const bunny = new BunnyNet({
+  pullzone: process.env.BUNNY_NET_PULLZONE,
+  accessKey: process.env.BUNNY_NET_ACCESS_KEY
+})
+
+console.log(await bunny.listPullzones())
+```
+
 ## Develop
 
 Create a `.env` file in the root of the project:

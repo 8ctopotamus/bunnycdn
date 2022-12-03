@@ -10,9 +10,11 @@ import BunnyNet from 'bunnynet-node-sdk'
 const bunny = new BunnyNet({
   pullzone: process.env.BUNNY_NET_PULLZONE,
   accessKey: process.env.BUNNY_NET_ACCESS_KEY
+  storageZoneName: process.env.BUNNY_NET_STORAGEZONE_NAME
 })
 
-console.log(await bunny.listPullzones())
+// GET all pullzones
+console.log(await bunny.pullzone.list())
 ```
 
 ## Develop

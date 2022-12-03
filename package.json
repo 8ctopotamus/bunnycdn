@@ -2,9 +2,14 @@
   "name": "bunnynet-node",
   "version": "1.0.0",
   "description": "A NodeJS SDK for Bunny.Net CDN.",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
+  "files": [
+    "lib"
+  ],
   "scripts": {
+    "prepublish": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,7 +21,9 @@
     "bunnynet",
     "bunnycdn",
     "bunny",
-    "cdn"
+    "cdn",
+    "node",
+    "sdk"
   ],
   "author": "@8ctopotamus",
   "license": "ISC",

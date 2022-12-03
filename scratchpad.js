@@ -1,13 +1,19 @@
 import dotenv from 'dotenv'
-import BunnyNet from './src/BunnyNet.js'
-
 dotenv.config()
 
-const { BUNNY_NET_ACCESS_KEY, BUNNY_NET_PULLZONE } = process.env
+import BunnyNet from './lib/BunnyNet.js'
+
+const {
+  BUNNY_NET_ACCESS_KEY,
+  BUNNY_NET_PULLZONE,
+  BUNNY_NET_STORAGEZONE_NAME 
+} = process.env
 
 const bunny = new BunnyNet({
   pullzone: BUNNY_NET_PULLZONE,
-  accessKey: BUNNY_NET_ACCESS_KEY
+  accessKey: BUNNY_NET_ACCESS_KEY,
+  storageZoneName: BUNNY_NET_STORAGEZONE_NAME
 })
 
-console.log(await bunny.api.pullzone.list())
+// GET all pullzones
+console.log(await bunny.pullzone.list())

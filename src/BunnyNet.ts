@@ -1,12 +1,18 @@
 import fetch from 'node-fetch'
 
 class BunnyNet {
-  BUNNY_API_URL='https://api.bunny.net'
+  BUNNY_API_URL: string = 'https://api.bunny.net'
+  ACCESS_KEY: string
+  PULLZONE: string
+  PULLZONE_URL: string
+  STORAGEZONE_NAME: string
+  talkToBunny: Function
 
   constructor({ accessKey, pullZone, storageZoneName }) {
-    this.ACCESS_KEY = accessKey // NOTE: this can also be the storage zone password
+    this.ACCESS_KEY = accessKey
     this.PULLZONE = `${pullZone}.b-cdn.net`
     this.PULLZONE_URL = `https://${this.PULLZONE}`
+    this.STORAGEZONE_NAME = storageZoneName
     
     this.talkToBunny = async function(
       endpoint, 
@@ -21,7 +27,7 @@ class BunnyNet {
           method,
           headers: {
             ...headers,
-            AccessKey: this.accessKey,
+            AccessKey: this.ACCESS_KEY,
             accept: 'application/json',
           },
           body: body ? JSON.stringify(body) : null
@@ -35,8 +41,20 @@ class BunnyNet {
   
   pullzone = {
     list: async args => {
-      return await this.talkToBunny('/pullzone', args)
-    }
+      return this.talkToBunny('/pullzone', args)
+    },
+    get: async (id: string, args) => {
+      return this.talkToBunny(`/pullzone/${id}`, args)
+    },
+    add: async args => {
+      return this.talkToBunny('/pullzone', args)
+    },
+    update: async args => {
+      return this.talkToBunny('/pullzone', args)
+    },
+    delete: async args => {
+      return this.talkToBunny('/pullzone', args)
+    },
   }
   
   edge = {}

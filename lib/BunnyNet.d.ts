@@ -4,13 +4,15 @@ declare class BunnyNet {
     PULLZONE: string;
     PULLZONE_URL: string;
     STORAGEZONE_NAME: string;
+    STORAGEZONE_REGION: string;
     STORAGEZONE_PASSWORD: string;
     STORAGEZONE_URL: string;
     talkToBunny: Function;
-    constructor({ accessKey, pullZone, storageZoneName, storageZonePassword }: {
+    constructor({ accessKey, pullZone, storageZoneName, storageZoneRegion, storageZonePassword }: {
         accessKey: any;
         pullZone: any;
         storageZoneName: any;
+        storageZoneRegion: any;
         storageZonePassword: any;
     });
     pullzone: {

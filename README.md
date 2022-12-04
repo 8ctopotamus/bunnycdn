@@ -12,6 +12,7 @@ const bunny = new BunnyNet({
   pullzone: process.env.BUNNY_NET_PULLZONE,
   accessKey: process.env.BUNNY_NET_ACCESS_KEY,
   storageZoneName: process.env.BUNNY_NET_STORAGEZONE_NAME,
+  storageZoneRegion: process.env.BUNNY_NET_STORAGEZONE_REGION, // may be excluded if not applicable
   storageZonePassword: process.env.BUNNY_NET_STORAGEZONE_PASSWORD,
 })
 

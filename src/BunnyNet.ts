@@ -6,17 +6,20 @@ class BunnyNet {
   PULLZONE: string
   PULLZONE_URL: string
   STORAGEZONE_NAME: string
+  STORAGEZONE_REGION: string
   STORAGEZONE_PASSWORD: string
   STORAGEZONE_URL: string
   talkToBunny: Function
 
-  constructor({ accessKey, pullZone, storageZoneName, storageZonePassword }) {
+  constructor({ accessKey, pullZone, storageZoneName, storageZoneRegion, storageZonePassword }) {
     this.ACCESS_KEY = accessKey
     this.PULLZONE = `${pullZone}.b-cdn.net`
     this.STORAGEZONE_NAME = storageZoneName
+    this.STORAGEZONE_REGION = storageZoneRegion
     this.STORAGEZONE_PASSWORD = storageZonePassword
     this.PULLZONE_URL = `https://${this.PULLZONE}`
-    this.STORAGEZONE_URL = `https://storage.bunnycdn.com/${this.STORAGEZONE_NAME}`
+    const region = this.STORAGEZONE_REGION ? `${this.STORAGEZONE_REGION}.` : ''
+    this.STORAGEZONE_URL = `https://${region}storage.bunnycdn.com/${this.STORAGEZONE_NAME}`
     
     this.talkToBunny = async function(
       url, 

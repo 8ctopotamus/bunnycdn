@@ -86,8 +86,13 @@ Run `node sandbox.js` to run sandbox file.
   * [ ] Add Captionpost
   * [ ] Delete Caption
 
+## Inspirations
+
+* [ BunnyCDN.PHP.Storage](https://github.com/BunnyWay/BunnyCDN.PHP.Storage#downloading-objects)
+
 ## Helpful links
 
 * [BunnyNet API Docs](https://docs.bunny.net/docs)
 * [How to allow ES6 Import/Exports AND CommonJS](https://www.sensedeep.com/blog/posts/2021/how-to-create-single-source-npm-module.html)
 * [Create NPM package with Typescript](https://spfx-app.dev/create-your-npm-package-with-typescript-in-a-few-minutes)
+

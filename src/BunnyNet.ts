@@ -33,15 +33,17 @@ class BunnyNet {
         const args = {
           method,
           headers: {
-            ...headers,
             AccessKey: url.includes(this.PULLZONE_URL) ? this.ACCESS_KEY : this.STORAGEZONE_PASSWORD,
             accept: 'application/json',
+            ...headers,
           },
           body: body ? JSON.stringify(body) : null
         }
         console.log(url)
         console.log(args)
         const response = await fetch(url, args)
+        console.log(response)
+        return response.text()
         return await response.json()
       } catch(err) {
         throw err
@@ -80,19 +82,23 @@ class BunnyNet {
     list: async (path: string, args) => {
       return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/`, args)
     },
-    upload: async (path: string, fileName: string, args) => {
-      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/${fileName}`, {
-        ...args,
-        method: 'PUT',
+    download: async (path: string) => {
+      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}`, {
         headers: {
-          ...args.headers,
-          'content-type': 'octet-stream'
-        }, 
+          accept: '*/*'
+        }
       })
     },
-    download: async (path: string, fileName: string, args) => {
-      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/${fileName}`, args)
-    },
+    // upload: async (path: string, fileName: string, args) => {
+    //   return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/${fileName}`, {
+    //     ...args,
+    //     method: 'PUT',
+    //     headers: {
+    //       ...args.headers,
+    //       'content-type': 'octet-stream'
+    //     }, 
+    //   })
+    // },
     delete: async (path: string, fileName: string, args) => {
       return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/${fileName}`, {
         method: 'DELETE',

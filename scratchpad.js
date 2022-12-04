@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config()
-
+import fs from 'fs'
 import BunnyNet from './lib/BunnyNet.js'
 
 const {
@@ -23,4 +23,10 @@ const bunny = new BunnyNet({
 // console.log( await bunny.pullzone.list() )
 
 // List files in edge storage
-console.log( await bunny.storage.list('images') )
+// console.log( await bunny.storage.list('images') )
+const file = await bunny.storage.download('images/tiger.jpg')
+
+fs.writeFile('./tiger.jpg', new Buffer.from(file), 'binary', (err) => {
+  if (err) throw Error(err)
+  console.log('File saved!')
+})

@@ -2,6 +2,8 @@
 
 A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
 
+The properties and methods mirror the endpoints described in the [BunnyCDN API Docs](https://docs.bunny.net/docs).
+
 ## Usage
 
 ```js
@@ -29,6 +31,7 @@ BUNNY_NET_PULLZONE=your_pullzone_name
 BUNNY_NET_ACCESS_KEY=your_access_key
 BUNNY_NET_STORAGEZONE_NAME=your_storagezone_name
 BUNNY_NET_STORAGEZONE_PASSWORD=your_storagezone_password
+BUNNY_NET_STORAGEZONE_REGION=your_storagezone_region_if_exists
 ```
 
 Run `node sandbox.js` to run sandbox file.
@@ -88,11 +91,11 @@ Run `node sandbox.js` to run sandbox file.
 
 ## Inspirations
 
-* [ BunnyCDN.PHP.Storage](https://github.com/BunnyWay/BunnyCDN.PHP.Storage#downloading-objects)
+* [Code with Mark BunnyCDN](https://github.com/codewithmark/bunnycdn)
+* [BunnyCDN.PHP.Storage](https://github.com/BunnyWay/BunnyCDN.PHP.Storage#downloading-objects)
 
 ## Helpful links
 
-* [BunnyNet API Docs](https://docs.bunny.net/docs)
 * [How to allow ES6 Import/Exports AND CommonJS](https://www.sensedeep.com/blog/posts/2021/how-to-create-single-source-npm-module.html)
 * [Create NPM package with Typescript](https://spfx-app.dev/create-your-npm-package-with-typescript-in-a-few-minutes)
 

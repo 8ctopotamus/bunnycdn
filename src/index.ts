@@ -1,1 +1,1 @@
-export * from './BunnyNet'
+export * from './BunnyCDN'

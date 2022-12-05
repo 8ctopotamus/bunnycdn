@@ -3,7 +3,7 @@ dotenv.config()
 import fs from 'fs'
 import { pipeline } from 'node:stream'
 import { promisify } from 'util'
-import BunnyNet from './lib/BunnyNet.js'
+import BunnyCDN from './lib/BunnyCDN.js'
 
 const {
   BUNNY_NET_ACCESS_KEY,
@@ -13,7 +13,7 @@ const {
   BUNNY_NET_STORAGEZONE_PASSWORD,
 } = process.env
 
-const bunny = new BunnyNet({
+const bunny = new BunnyCDN({
   pullzone: BUNNY_NET_PULLZONE,
   accessKey: BUNNY_NET_ACCESS_KEY,
   storageZoneName: BUNNY_NET_STORAGEZONE_NAME,
@@ -25,28 +25,25 @@ const bunny = new BunnyNet({
 // console.log( await bunny.pullzone.list() )
 
 // List files in edge storage
-// console.log( await bunny.storage.list('images') )
-
+console.log( await bunny.storage.list('images') )
 
 
 // Upload
-import { Blob } from 'buffer'
+// import { Blob } from 'buffer'
 
-let content = fs.readFileSync('./tiger.jpg')
-const blob = new Blob([content], { type: 'image/jpg' })
+// let content = fs.readFileSync('./tiger.jpg')
+// const blob = new Blob([content], { type: 'image/jpg' })
 
-await bunny.storage.upload('images/tiger-uploaded-2.jpg', blob)
+// await bunny.storage.upload('images/tiger-uploaded-2.jpg', blob)
 
-
-
-// Download
-const streamPipeline = promisify(pipeline)
-try {
-  const response = await bunny.storage.download('images/tiger.jpg')
+// // Download
+// const streamPipeline = promisify(pipeline)
+// try {
+//   const response = await bunny.storage.download('images/tiger.jpg')
   
-  if (!response.ok) throw new Error('Unexpected response', response.statusText)
+//   if (!response.ok) throw new Error('Unexpected response', response.statusText)
   
-  await streamPipeline(response.body, fs.createWriteStream('./tiger-downloaded.jpg'))
-}catch(err) {
-  console.log(err)
-}
+//   await streamPipeline(response.body, fs.createWriteStream('./tiger-downloaded.jpg'))
+// }catch(err) {
+//   console.log(err)
+// }

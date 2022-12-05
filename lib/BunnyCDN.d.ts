@@ -31,4 +31,4 @@ declare class BunnyCDN {
     stream: {};
 }
 export default BunnyCDN;
-//# sourceMappingURL=BunnyNet.d.ts.map
+//# sourceMappingURL=BunnyCDN.d.ts.map

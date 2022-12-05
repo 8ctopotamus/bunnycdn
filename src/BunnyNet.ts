@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-class BunnyNet {
+class BunnyCDN {
   BUNNY_API_URL: string = 'https://api.bunny.net'
   ACCESS_KEY: string
   PULLZONE: string
@@ -113,4 +113,4 @@ class BunnyNet {
   stream = {}
 }
 
-export default BunnyNet
+export default BunnyCDN

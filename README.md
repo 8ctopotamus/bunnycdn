@@ -1,19 +1,19 @@
-# bunnynet-node
+# @8ctopotamus/bunnycdn
 
 A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
- 
+
 ## Usage
 
 ```js
-import BunnyNet from 'bunnynet-node'
+import BunnyCDN from '@8ctopotamus/bunnycdn'
 
 // configure the SDK
-const bunny = new BunnyNet({
+const bunny = new BunnyCDN({
   pullzone: process.env.BUNNY_NET_PULLZONE,
   accessKey: process.env.BUNNY_NET_ACCESS_KEY,
   storageZoneName: process.env.BUNNY_NET_STORAGEZONE_NAME,
-  storageZoneRegion: process.env.BUNNY_NET_STORAGEZONE_REGION, // may be excluded if not applicable
   storageZonePassword: process.env.BUNNY_NET_STORAGEZONE_PASSWORD,
+  storageZoneRegion: process.env.BUNNY_NET_STORAGEZONE_REGION, // may be excluded if not applicable
 })
 
 // GET all pullzones

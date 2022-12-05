@@ -25,7 +25,8 @@ declare class BunnyNet {
     storage: {
         list: (path: string, args: any) => Promise<any>;
         download: (path: string) => Promise<any>;
-        delete: (path: string, fileName: string, args: any) => Promise<any>;
+        upload: (path: string, blob: any) => Promise<any>;
+        delete: (path: string) => Promise<any>;
     };
     stream: {};
 }

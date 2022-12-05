@@ -27,7 +27,8 @@ class BunnyNet {
         method = 'GET', 
         headers = {}, 
         body = null, 
-      } = {}
+      } = {},
+      responseType = 'json'
     ) {
       try {
         const args = {
@@ -37,14 +38,17 @@ class BunnyNet {
             accept: 'application/json',
             ...headers,
           },
-          body: body ? JSON.stringify(body) : null
+          body: body //body ? JSON.stringify(body) : null
         }
         console.log(url)
         console.log(args)
         const response = await fetch(url, args)
         console.log(response)
-        return response.text()
-        return await response.json()
+        if (responseType === 'json') {
+          return await response.json()
+        }
+        console.log('no response type')
+        return response
       } catch(err) {
         throw err
       }
@@ -87,22 +91,21 @@ class BunnyNet {
         headers: {
           accept: '*/*'
         }
+      }, null)
+    },
+    upload: async (path: string, blob: any) => {
+      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/octet-stream',
+          accept: null,
+        },
+        body: blob,
       })
     },
-    // upload: async (path: string, fileName: string, args) => {
-    //   return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/${fileName}`, {
-    //     ...args,
-    //     method: 'PUT',
-    //     headers: {
-    //       ...args.headers,
-    //       'content-type': 'octet-stream'
-    //     }, 
-    //   })
-    // },
-    delete: async (path: string, fileName: string, args) => {
-      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/${fileName}`, {
+    delete: async (path: string) => {
+      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}`, {
         method: 'DELETE',
-        ...args, 
       })
     },
   }

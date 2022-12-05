@@ -1,6 +1,8 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import fs from 'fs'
+import { pipeline } from 'node:stream'
+import { promisify } from 'util'
 import BunnyNet from './lib/BunnyNet.js'
 
 const {
@@ -24,9 +26,27 @@ const bunny = new BunnyNet({
 
 // List files in edge storage
 // console.log( await bunny.storage.list('images') )
-const file = await bunny.storage.download('images/tiger.jpg')
 
-fs.writeFile('./tiger.jpg', new Buffer.from(file), 'binary', (err) => {
-  if (err) throw Error(err)
-  console.log('File saved!')
-})
+
+
+// Upload
+import { Blob } from 'buffer'
+
+let content = fs.readFileSync('./tiger.jpg')
+const blob = new Blob([content], { type: 'image/jpg' })
+
+await bunny.storage.upload('images/tiger-uploaded-2.jpg', blob)
+
+
+
+// Download
+const streamPipeline = promisify(pipeline)
+try {
+  const response = await bunny.storage.download('images/tiger.jpg')
+  
+  if (!response.ok) throw new Error('Unexpected response', response.statusText)
+  
+  await streamPipeline(response.body, fs.createWriteStream('./tiger-downloaded.jpg'))
+}catch(err) {
+  console.log(err)
+}

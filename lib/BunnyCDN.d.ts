@@ -9,13 +9,6 @@ declare class BunnyCDN {
     STORAGEZONE_URL: string;
     talkToBunny: Function;
     constructor({ accessKey, pullZone, storageZoneName, storageZoneRegion, storageZonePassword }: BunnyConstructor);
-    pullzone: {
-        list: (params: any) => Promise<any>;
-        get: (id: string | number) => Promise<any>;
-        add: (args: any) => Promise<any>;
-        update: (id: string | number, args: any) => Promise<any>;
-        delete: (id: string | number, args: any) => Promise<any>;
-    };
     storage: {
         list: (path: string, args: any) => Promise<any>;
         download: (path: string) => Promise<any>;
@@ -23,6 +16,13 @@ declare class BunnyCDN {
         delete: (path: string) => Promise<any>;
     };
     stream: {};
+    pullzone: {
+        list: (params: any) => Promise<any>;
+        get: (id: string | number) => Promise<any>;
+        add: (args: any) => Promise<any>;
+        update: (id: string | number, args: any) => Promise<any>;
+        delete: (id: string | number, args: any) => Promise<any>;
+    };
 }
 export default BunnyCDN;
 //# sourceMappingURL=BunnyCDN.d.ts.map

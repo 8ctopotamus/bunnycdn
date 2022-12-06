@@ -55,32 +55,82 @@ class BunnyCDN {
             ? JSON.stringify(body)
             : body
         }
+        const accessKey = url.includes(this.PULLZONE_URL) ? this.ACCESS_KEY : this.STORAGEZONE_PASSWORD
         const args = {
           method,
           headers: {
-            AccessKey: url.includes(this.PULLZONE_URL) ? this.ACCESS_KEY : this.STORAGEZONE_PASSWORD,
+            AccessKey: accessKey,
             accept: 'application/json',
             ...headers,
           },
           body: finalBody
         }
-        console.log(method, url)
-        console.log(args)
-        // const response = await fetch(url, args)
-        // if (!response.ok) 
-        //   throw new Error(`BunnyCDN unexpected response: [${response.status}], ${response.statusText}`)
-        // if (responseType === 'json') {
-        //   return await response.json()
-        // } else if (responseType === 'text') {
-        //   return await response.text()
-        // }
-        // return response.body // you can decide what to do with it
+        // console.log(method, url)
+        // console.log(args)
+        const response = await fetch(url, args)
+        if (!response.ok) 
+          throw new Error(`BunnyCDN unexpected response: [${response.status}], ${response.statusText}`)
+        if (responseType === 'json') {
+          return await response.json()
+        } else if (responseType === 'text') {
+          return await response.text()
+        }
+        return response.body // you can decide what to do with it
       } catch(err) {
         throw err
       }
     }
   }
   
+  storage = {
+    list: async (path: string, args) => {
+      return this.talkToBunny({ url: `${this.STORAGEZONE_URL}/${path}/` })
+    },
+    download: async (path: string) => {
+      return this.talkToBunny({
+        url: `${this.STORAGEZONE_URL}/${path}`, 
+        fetchArgs: {
+          method: 'GET',
+          headers: {
+            accept: '*/*'
+          },
+          body: null,
+        },
+        ttbOptions: {
+          responseType: null,
+          stringifyBody: false
+        }
+      })
+    },
+    upload: async (path: string, blob: any) => {
+      return this.talkToBunny({
+        url: `${this.STORAGEZONE_URL}/${path}`, 
+        fetchArgs: {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/octet-stream',
+            accept: null,
+          },
+          body: blob,
+        },
+        ttbOptions: {
+          responseType: null,
+          stringifyBody: false
+        }
+      })
+    },
+    delete: async (path: string) => {
+      return this.talkToBunny({
+        url: `${this.STORAGEZONE_URL}/${path}`, 
+        fetchArgs: {
+          method: 'DELETE',
+        },
+      })
+    },
+  }
+
+  stream = {}
+
   pullzone = {
     list: async params => {
       // TODO: params
@@ -118,36 +168,6 @@ class BunnyCDN {
       })
     },
   }
-  
-  storage = {
-    list: async (path: string, args) => {
-      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}/`, args)
-    },
-    download: async (path: string) => {
-      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}`, {
-        headers: {
-          accept: '*/*'
-        }
-      }, null)
-    },
-    upload: async (path: string, blob: any) => {
-      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/octet-stream',
-          accept: null,
-        },
-        body: blob,
-      })
-    },
-    delete: async (path: string) => {
-      return this.talkToBunny(`${this.STORAGEZONE_URL}/${path}`, {
-        method: 'DELETE',
-      })
-    },
-  }
-
-  stream = {}
 }
 
 export default BunnyCDN

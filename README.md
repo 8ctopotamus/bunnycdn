@@ -34,7 +34,7 @@ BUNNY_NET_STORAGEZONE_PASSWORD=your_storagezone_password
 BUNNY_NET_STORAGEZONE_REGION=your_storagezone_region_if_exists
 ```
 
-Run `node sandbox.js` to run sandbox file.
+Run `npm run test`
 
 ## TODO
 

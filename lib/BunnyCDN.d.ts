@@ -10,10 +10,9 @@ declare class BunnyCDN {
     talkToBunny: Function;
     constructor({ accessKey, pullZone, storageZoneName, storageZoneRegion, storageZonePassword }: BunnyConstructor);
     storage: {
-        list: (path: string, args: any) => Promise<any>;
-        download: (path: string) => Promise<any>;
-        upload: (path: string, blob: any) => Promise<any>;
-        delete: (path: string) => Promise<any>;
+        list: (path: string) => Promise<any>;
+        download: (storagePath: string, destinationPath: string) => Promise<string>;
+        upload: (pathToFile: string, storagePath: string) => Promise<any>;
     };
     stream: {};
     pullzone: {

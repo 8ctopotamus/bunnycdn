@@ -1,10 +1,11 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
+import { jest } from '@jest/globals'
 import fs from 'fs'
 import path from 'path'
-import { pipeline } from 'node:stream'
-import { promisify } from 'util'
-import { Blob } from 'buffer'
+import * as dotenv from 'dotenv'
+dotenv.config()
+
+jest.setTimeout(10000)
+
 import BunnyCDN from '../lib/BunnyCDN.js'
 
 const {
@@ -23,10 +24,10 @@ let bunny = new BunnyCDN({
   storageZonePassword: BUNNY_NET_STORAGEZONE_PASSWORD
 })
 
-const streamPipeline = promisify(pipeline)
-const testImgBasePath = path.join(process.cwd(), 'tests', )
-const testUploadImgPath = path.join(testImgBasePath, 'tiger.jpg')
-const testDownloadedImgPath = path.join(testImgBasePath, 'tiger-downloaded.jpg')
+const testFilenamePrefix = 'bunnynet-banner'
+const testImgBasePath = path.join(process.cwd(), `tests`)
+const testUploadDestPath = path.join(testImgBasePath, `${testFilenamePrefix}.webp`)
+const testDownloadedDestPath = path.join(testImgBasePath, `${testFilenamePrefix}-downloaded.webp`)
 
 describe('BunnyCDN class ', () => {
   describe('Constructor', () => {
@@ -42,41 +43,40 @@ describe('BunnyCDN class ', () => {
   })
 
   describe('Edge Storage API', () => {
+    // it('Lists folders and files', async () => {
+    //   const response = await bunny.storage.list('images')
+    //   expect(typeof response).toBe('object')
+    // })
     it('Uploads a file', async () => {
       try {
-        let content = fs.readFileSync(testUploadImgPath)
-        const blob = new Blob([content], { type: 'image/jpg' })
-        const response = await bunny.storage.upload('images/tiger-uploaded.jpg', blob)
+        const response = await bunny.storage.upload(testUploadDestPath, `${testFilenamePrefix}-uploaded.webp`)
+        
         expect(response.Ok).toBe(true)
       } catch(err) {
         console.log(err)
       }
-    })
-    it('Lists folders and files', async () => {
-      const response = await bunny.storage.list('images')
-      expect(typeof response).toBe('object')
-    })
-    it('Downloads a file ', async () => {
-      try {
-        const responseBody = await bunny.storage.download('images/tiger.jpg')
-        await streamPipeline(responseBody, fs.createWriteStream(testDownloadedImgPath))
-        const fileExists = fs.existsSync(testDownloadedImgPath)
-        expect(fileExists).toBe(true)
-      } catch(err) {
-        console.log(err)
-      }
-    })
-    it('Deletes a file', async () => {
-      try {
-        const countB4 = (await bunny.storage.list('images')).length
-        await bunny.storage.delete('images/tiger-uploaded.jpg')
-        const countAfter = (await bunny.storage.list('images')).length
-        console.log(`B4: ${countB4}, After: ${countAfter}`)
-        expect(countAfter).toBe(countB4 - 1)
-      } catch(err) {
-        console.log(err)
-      }
-    })
+    })    
+    // it('Downloads a file ', async () => {
+    //   try {
+    //     await bunny.storage.download(`${testFilenamePrefix}-uploaded.webp`, `${testFilenamePrefix}.webp`)
+        
+    //     const fileExists = fs.existsSync(testDownloadedDestPath)
+    //     expect(fileExists).toBe(true)
+    //   } catch(err) {
+    //     console.log(err)
+    //   }
+    // })
+    // it('Deletes a file', async () => {
+    //   try {
+    //     const countB4 = (await bunny.storage.list('images')).length
+    //     await bunny.storage.delete('images/tiger-uploaded.jpg')
+    //     const countAfter = (await bunny.storage.list('images')).length
+    //     console.log(`B4: ${countB4}, After: ${countAfter}`)
+    //     expect(countAfter).toBe(countB4 - 1)
+    //   } catch(err) {
+    //     console.log(err)
+    //   }
+    // })
   })
 })
 

@@ -4,7 +4,7 @@ A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
 
 <a href="https://bunny.net/" target="_blank" title="Bunny.net website">![Bunny.net hero banner graphic](./tests/bunnynet-banner.webp)</a>
 
-The properties and methods mirror the endpoints described in the **[BunnyCDN API Docs](https://docs.bunny.net/docs)**.
+The properties and methods mirror the endpoints described in the [BunnyCDN API Documentation](https://docs.bunny.net/docs).
 
 > ⚠ IMPORTANT: This is not anywhere near ready for use in actual projects. 
 
@@ -24,7 +24,7 @@ const bunny = new BunnyCDN({
 
 ```
 
-### Edge Storage
+### Edge Storage API
 
 #### List folders and files at a given storage path
 
@@ -35,25 +35,19 @@ await bunny.storage.list('images')
 #### Upload a file
 
 ```js
-const url = await bunny.storage.upload(
-  `path/to/source.jpg`, 
-  `path/in/edge/storage/source.jpg`
-)
+const url = await bunny.storage.upload(`./img.jpg`, `images/img.jpg`)
 ```
 
 #### Download a file
 
 ```js
-await bunny.storage.download(
-  `path/in/edge/storage/source.jpg`, 
-  `./source.jpg``
-)
+await bunny.storage.download(`images/img.jpg`, `./img.jpg`)
 ```
 
 #### Delete a file
 
 ```js
-await bunny.storage.delete(`path/in/edge/storage/source.jpg`)
+await bunny.storage.delete(`images/img.jpg`)
 ```
 
 ## Develop
@@ -68,21 +62,9 @@ BUNNY_NET_STORAGEZONE_PASSWORD=your_storagezone_password
 BUNNY_NET_STORAGEZONE_REGION=your_storagezone_region_if_exists
 ```
 
-Run `npm run test`
+Run `npm run dev` and `npm run test` in separate terminals
 
-## TODO
-
-### Edge Storage API
-
-NOTE: I need to use storage in an upcoming project, so starting here...
-
-* [...] Manage Files
-  * [...] Download File
-  * [...] Upload a File
-  * [...] Delete a File
-
-* [...] Browse Files
-  * [...] List Files
+## TODOs
 
 ### Bunny.Net API
 

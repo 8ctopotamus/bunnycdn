@@ -22,10 +22,38 @@ const bunny = new BunnyCDN({
   storageZoneRegion: process.env.BUNNY_NET_STORAGEZONE_REGION, // may be excluded if not applicable
 })
 
-// Example: GET all pullzones
-console.log( await bunny.pullzone.list() )
+```
 
-// more examples/documentation to come...
+### Edge Storage
+
+#### List folders and files at a given storage path
+
+```js
+await bunny.storage.list('images')
+```
+
+#### Upload a file
+
+```js
+const url = await bunny.storage.upload(
+  `path/to/source.jpg`, 
+  `path/in/edge/storage/source.jpg`
+)
+```
+
+#### Download a file
+
+```js
+await bunny.storage.download(
+  `path/in/edge/storage/source.jpg`, 
+  `./source.jpg``
+)
+```
+
+#### Delete a file
+
+```js
+await bunny.storage.delete(`path/in/edge/storage/source.jpg`)
 ```
 
 ## Develop

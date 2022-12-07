@@ -137,14 +137,14 @@ class BunnyCDN {
       })
       return szURL
     },
-    // delete: async (path: string) => {
-    //   return this.talkToBunny({
-    //     url: `${this.STORAGEZONE_URL}/${path}`, 
-    //     fetchArgs: {
-    //       method: 'DELETE',
-    //     },
-    //   })
-    // },
+    delete: async (path: string) => {
+      return this.talkToBunny({
+        url: `${this.STORAGEZONE_URL}/${path}`, 
+        fetchArgs: {
+          method: 'DELETE',
+        },
+      })
+    },
   }
 
   stream = {}

@@ -13,6 +13,7 @@ declare class BunnyCDN {
         list: (path: string) => Promise<any>;
         download: (storagePath: string, destinationPath: string) => Promise<string>;
         upload: (pathToFile: string, storagePath: string) => Promise<string>;
+        delete: (path: string) => Promise<any>;
     };
     stream: {};
     pullzone: {

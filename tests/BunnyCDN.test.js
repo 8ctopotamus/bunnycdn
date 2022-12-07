@@ -62,7 +62,7 @@ describe('BunnyCDN class ', () => {
     it('Downloads a file ', async () => {
       try {
         await bunny.storage.download(
-          `test/bunnynet-banner-uploaded.webp`, 
+          `test/${testFilenamePrefix}-uploaded.webp`, 
           `./tests/${testFilenamePrefix}-downloaded.webp`
         )
 
@@ -72,17 +72,17 @@ describe('BunnyCDN class ', () => {
         console.log('ERR', err)
       }
     })
-    // it('Deletes a file', async () => {
-    //   try {
-    //     const countB4 = (await bunny.storage.list('images')).length
-    //     await bunny.storage.delete('images/tiger-uploaded.jpg')
-    //     const countAfter = (await bunny.storage.list('images')).length
-    //     console.log(`B4: ${countB4}, After: ${countAfter}`)
-    //     expect(countAfter).toBe(countB4 - 1)
-    //   } catch(err) {
-    //     console.log(err)
-    //   }
-    // })
+    it('Deletes a file', async () => {
+      try {
+        const countB4 = (await bunny.storage.list('images')).length
+        await bunny.storage.delete(`test/${testFilenamePrefix}-uploaded.webp`)
+        const countAfter = (await bunny.storage.list('images')).length
+        console.log(`B4: ${countB4}, After: ${countAfter}`)
+        expect(countAfter).toBe(countB4 - 1)
+      } catch(err) {
+        console.log(err)
+      }
+    })
   })
 })
 

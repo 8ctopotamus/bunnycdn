@@ -68,31 +68,31 @@ Run `npm run dev` and `npm run test` in separate terminals
 
 ### Bunny.Net API
 
-* [] Abuse Case
-* [] Countries
-* [] Billing
-* [] Compute
-* [] Support
-* [] DRM Certificate
-* [] Region
-* [] Stream Video Library
-* [] DNS Zone
+* [ ] Abuse Case
+* [ ] Countries
+* [ ] Billing
+* [ ] Compute
+* [ ] Support
+* [ ] DRM Certificate
+* [ ] Region
+* [ ] Stream Video Library
+* [ ] DNS Zone
 * [...] Pull Zone
-* [] Purge
-* [] Statistics
-* [] Storage Zone
-* [] User
+* [ ] Purge
+* [ ] Statistics
+* [ ] Storage Zone
+* [ ] User
 
 ### Stream API
 
-* [] Manage Collections
-  * [] Get Collection
-  * [] Update Collection
-  * [] Delete Collection
-  * [] Get Collection List
-  * [] Create Collection
+* Manage Collections
+  * [ ] Get Collection
+  * [ ] Update Collection
+  * [ ] Delete Collection
+  * [ ] Get Collection List
+  * [ ] Create Collection
 
-* [] Manage Videos
+* Manage Videos
   * [ ] Get Videoget
   * [ ] Update Videopost
   * [ ] Delete Videodelete

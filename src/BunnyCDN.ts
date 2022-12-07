@@ -1,8 +1,16 @@
 import fetch from 'node-fetch'
+import fs from 'fs'
+import path from 'path'
+import { pipeline } from 'node:stream'
+import { promisify } from 'util'
+import { Blob } from 'buffer'
+import mime from 'mime-types'
 import { 
   BunnyConstructor, 
   TalkToBunny, 
 } from './interfaces'
+
+const streamPipeline = promisify(pipeline)
 
 class BunnyCDN {
   BUNNY_API_URL: string = 'https://api.bunny.net'
@@ -13,14 +21,14 @@ class BunnyCDN {
   STORAGEZONE_PASSWORD: string
   STORAGEZONE_URL: string
   talkToBunny: Function
-
+  
   constructor({
     accessKey,
     pullZone,
     storageZoneName,
     storageZoneRegion,
     storageZonePassword
-  }: BunnyConstructor) {
+  } : BunnyConstructor) {
     this.ACCESS_KEY = accessKey
     this.PULLZONE_URL = `https://${pullZone}.b-cdn.net`
     this.STORAGEZONE_NAME = storageZoneName
@@ -65,8 +73,8 @@ class BunnyCDN {
           },
           body: finalBody
         }
-        // console.log(method, url)
-        // console.log(args)
+        console.log(method, url)
+        console.log(args)
         const response = await fetch(url, args)
         if (!response.ok) 
           throw new Error(`BunnyCDN unexpected response: [${response.status}], ${response.statusText}`)
@@ -81,14 +89,14 @@ class BunnyCDN {
       }
     }
   }
-  
+
   storage = {
-    list: async (path: string, args) => {
+    list: async (path: string) => {
       return this.talkToBunny({ url: `${this.STORAGEZONE_URL}/${path}/` })
     },
-    download: async (path: string) => {
-      return this.talkToBunny({
-        url: `${this.STORAGEZONE_URL}/${path}`, 
+    download: async (storagePath: string, destinationPath: string) => {
+      const responseBody = await this.talkToBunny({
+        url: `${this.STORAGEZONE_URL}/${storagePath}`, 
         fetchArgs: {
           method: 'GET',
           headers: {
@@ -101,10 +109,19 @@ class BunnyCDN {
           stringifyBody: false
         }
       })
+
+      
+      await streamPipeline(responseBody, fs.createWriteStream(destinationPath))
+      return destinationPath
     },
-    upload: async (path: string, blob: any) => {
-      return this.talkToBunny({
-        url: `${this.STORAGEZONE_URL}/${path}`, 
+    upload: async (pathToFile: string, storagePath: string) => {
+      const szURL = `${this.STORAGEZONE_URL}/${storagePath}`
+      let content = fs.readFileSync(pathToFile)
+      const ext = path.extname(pathToFile)
+      const type = mime.lookup(ext)
+      const blob = new Blob([content], { type })
+      await this.talkToBunny({
+        url: szURL, 
         fetchArgs: {
           method: 'PUT',
           headers: {
@@ -118,6 +135,7 @@ class BunnyCDN {
           stringifyBody: false
         }
       })
+      return szURL
     },
     delete: async (path: string) => {
       return this.talkToBunny({

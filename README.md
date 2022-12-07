@@ -2,7 +2,11 @@
 
 A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
 
-The properties and methods mirror the endpoints described in the [BunnyCDN API Docs](https://docs.bunny.net/docs).
+<a href="https://bunny.net/" target="_blank" title="Bunny.net website">![Bunny.net hero banner graphic](./tests/bunnynet-banner.webp)</a>
+
+The properties and methods mirror the endpoints described in the **[BunnyCDN API Docs](https://docs.bunny.net/docs)**.
+
+> ⚠ IMPORTANT: This is not anywhere near ready for use in actual projects. 
 
 ## Usage
 
@@ -18,8 +22,38 @@ const bunny = new BunnyCDN({
   storageZoneRegion: process.env.BUNNY_NET_STORAGEZONE_REGION, // may be excluded if not applicable
 })
 
-// GET all pullzones
-console.log( await bunny.pullzone.list() )
+```
+
+### Edge Storage
+
+#### List folders and files at a given storage path
+
+```js
+await bunny.storage.list('images')
+```
+
+#### Upload a file
+
+```js
+const url = await bunny.storage.upload(
+  `path/to/source.jpg`, 
+  `path/in/edge/storage/source.jpg`
+)
+```
+
+#### Download a file
+
+```js
+await bunny.storage.download(
+  `path/in/edge/storage/source.jpg`, 
+  `./source.jpg``
+)
+```
+
+#### Delete a file
+
+```js
+await bunny.storage.delete(`path/in/edge/storage/source.jpg`)
 ```
 
 ## Develop
@@ -38,6 +72,18 @@ Run `npm run test`
 
 ## TODO
 
+### Edge Storage API
+
+NOTE: I need to use storage in an upcoming project, so starting here...
+
+* [...] Manage Files
+  * [...] Download File
+  * [...] Upload a File
+  * [...] Delete a File
+
+* [...] Browse Files
+  * [...] List Files
+
 ### Bunny.Net API
 
 * [] Abuse Case
@@ -54,16 +100,6 @@ Run `npm run test`
 * [] Statistics
 * [] Storage Zone
 * [] User
-
-### Edge Storage API
-
-* [...] Manage Files
-  * [...] Download File
-  * [...] Upload a File
-  * [...] Delete a File
-
-* [...] Browse Files
-  * [...] List Files
 
 ### Stream API
 
@@ -94,8 +130,9 @@ Run `npm run test`
 * [Code with Mark BunnyCDN](https://github.com/codewithmark/bunnycdn)
 * [BunnyCDN.PHP.Storage](https://github.com/BunnyWay/BunnyCDN.PHP.Storage#downloading-objects)
 
-## Helpful links
+## Helpful links for me
 
 * [How to allow ES6 Import/Exports AND CommonJS](https://www.sensedeep.com/blog/posts/2021/how-to-create-single-source-npm-module.html)
 * [Create NPM package with Typescript](https://spfx-app.dev/create-your-npm-package-with-typescript-in-a-few-minutes)
+* [SO: how to make jest run tests in a specific order](https://stackoverflow.com/questions/49247539/how-to-make-jest-run-tests-in-a-specific-order)
 

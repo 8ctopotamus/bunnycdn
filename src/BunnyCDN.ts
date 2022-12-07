@@ -73,8 +73,8 @@ class BunnyCDN {
           },
           body: finalBody
         }
-        // console.log(method, url)
-        // console.log(args)
+        console.log(method, url)
+        console.log(args)
         const response = await fetch(url, args)
         if (!response.ok) 
           throw new Error(`BunnyCDN unexpected response: [${response.status}], ${response.statusText}`)
@@ -95,7 +95,7 @@ class BunnyCDN {
       return this.talkToBunny({ url: `${this.STORAGEZONE_URL}/${path}/` })
     },
     download: async (storagePath: string, destinationPath: string) => {
-      const responseBody = this.talkToBunny({
+      const responseBody = await this.talkToBunny({
         url: `${this.STORAGEZONE_URL}/${storagePath}`, 
         fetchArgs: {
           method: 'GET',
@@ -109,19 +109,19 @@ class BunnyCDN {
           stringifyBody: false
         }
       })
+
+      
       await streamPipeline(responseBody, fs.createWriteStream(destinationPath))
       return destinationPath
     },
     upload: async (pathToFile: string, storagePath: string) => {
+      const szURL = `${this.STORAGEZONE_URL}/${storagePath}`
       let content = fs.readFileSync(pathToFile)
       const ext = path.extname(pathToFile)
       const type = mime.lookup(ext)
       const blob = new Blob([content], { type })
-
-      console.log('HERE', ext, type)
-
-      return this.talkToBunny({
-        url: `${this.STORAGEZONE_URL}/${storagePath}`, 
+      await this.talkToBunny({
+        url: szURL, 
         fetchArgs: {
           method: 'PUT',
           headers: {
@@ -135,6 +135,7 @@ class BunnyCDN {
           stringifyBody: false
         }
       })
+      return szURL
     },
     // delete: async (path: string) => {
     //   return this.talkToBunny({

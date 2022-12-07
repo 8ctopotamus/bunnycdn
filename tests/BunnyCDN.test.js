@@ -4,7 +4,7 @@ import path from 'path'
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-jest.setTimeout(10000)
+jest.setTimeout(34000)
 
 import BunnyCDN from '../lib/BunnyCDN.js'
 
@@ -26,46 +26,52 @@ let bunny = new BunnyCDN({
 
 const testFilenamePrefix = 'bunnynet-banner'
 const testImgBasePath = path.join(process.cwd(), `tests`)
-const testUploadDestPath = path.join(testImgBasePath, `${testFilenamePrefix}.webp`)
+const testUploadLocalPath = path.join(testImgBasePath, `${testFilenamePrefix}.webp`)
 const testDownloadedDestPath = path.join(testImgBasePath, `${testFilenamePrefix}-downloaded.webp`)
+
+const pzURL = `https://${BUNNY_NET_PULLZONE}.b-cdn.net`
+const region = BUNNY_NET_STORAGEZONE_REGION ? `${BUNNY_NET_STORAGEZONE_REGION}.` : ''
+const szURL = `https://${region}storage.bunnycdn.com/${BUNNY_NET_STORAGEZONE_NAME}`
 
 describe('BunnyCDN class ', () => {
   describe('Constructor', () => {
     it('Correctly constructs a Pull Zone URL', () => {
-      const pzURL = `https://${BUNNY_NET_PULLZONE}.b-cdn.net`
       expect(bunny.PULLZONE_URL).toEqual(pzURL)
     })
     it('Correctly constructs a Storage Zone URL', () => {
-      const region = BUNNY_NET_STORAGEZONE_REGION ? `${BUNNY_NET_STORAGEZONE_REGION}.` : ''
-      const szURL = `https://${region}storage.bunnycdn.com/${BUNNY_NET_STORAGEZONE_NAME}`
       expect(bunny.STORAGEZONE_URL).toEqual(szURL)
     })
   })
 
   describe('Edge Storage API', () => {
-    // it('Lists folders and files', async () => {
-    //   const response = await bunny.storage.list('images')
-    //   expect(typeof response).toBe('object')
-    // })
+    it('Lists folders and files', async () => {
+      const response = await bunny.storage.list('images')
+      expect(typeof response).toBe('object')
+    })
     it('Uploads a file', async () => {
       try {
-        const response = await bunny.storage.upload(testUploadDestPath, `${testFilenamePrefix}-uploaded.webp`)
-        
-        expect(response.Ok).toBe(true)
+        const url = await bunny.storage.upload(
+          `${testUploadLocalPath}`, 
+          `test/${testFilenamePrefix}-uploaded.webp`
+        )
+        expect(url).toBe(`${szURL}/test/${testFilenamePrefix}-uploaded.webp`)
       } catch(err) {
-        console.log(err)
+        console.log('ERR', err)
       }
     })    
-    // it('Downloads a file ', async () => {
-    //   try {
-    //     await bunny.storage.download(`${testFilenamePrefix}-uploaded.webp`, `${testFilenamePrefix}.webp`)
-        
-    //     const fileExists = fs.existsSync(testDownloadedDestPath)
-    //     expect(fileExists).toBe(true)
-    //   } catch(err) {
-    //     console.log(err)
-    //   }
-    // })
+    it('Downloads a file ', async () => {
+      try {
+        await bunny.storage.download(
+          `test/bunnynet-banner-uploaded.webp`, 
+          `./tests/${testFilenamePrefix}-downloaded.webp`
+        )
+
+        const fileExists = fs.existsSync(testDownloadedDestPath)
+        expect(fileExists).toBe(true)
+      } catch(err) {
+        console.log('ERR', err)
+      }
+    })
     // it('Deletes a file', async () => {
     //   try {
     //     const countB4 = (await bunny.storage.list('images')).length

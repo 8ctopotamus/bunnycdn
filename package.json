@@ -1,6 +1,6 @@
 {
   "name": "@8ctopotamus/bunnycdn",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A NodeJS SDK for Bunny.Net CDN.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

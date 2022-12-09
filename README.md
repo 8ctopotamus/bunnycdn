@@ -6,7 +6,7 @@ A NodeJS SDK for [Bunny.Net CDN](https://bunny.net/).
 
 The properties and methods mirror the endpoints described in the [BunnyCDN API Documentation](https://docs.bunny.net/docs).
 
-> ⚠ IMPORTANT: This is not anywhere near ready for use in actual projects. 
+> ⚠ IMPORTANT: This package not anywhere near ready for use in actual projects. At this point it is an exercise in building an NPM package with TypeScript.
 
 ## Usage
 
